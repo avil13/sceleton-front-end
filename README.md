@@ -19,7 +19,7 @@ bower install
 
 ```
 
-Установятся angular, angular-route, bootstrap 3, sweetalet.
+Установятся angular, angular-route, bootstrap 3, sweetalert.
 
 Скрипты изначально писались на coffee-script и лежат в папке 
 ```
@@ -81,6 +81,8 @@ Empty myProject
 
 Будет создана папка с **myProject** и в ней так же будут установлены все модули и библиотеки.
 
+
+Эдакий аналог yoman'a только без гемора с его генераторами.
 
 
 * * *
