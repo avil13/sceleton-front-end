@@ -25,11 +25,11 @@ public/content/coffee/
 
 В корне папки 
 
-** gulp less ** - для сборки CSS из Less файлов.
+**gulp less** - для сборки CSS из Less файлов.
 
-** gulp coffee ** - для сборки js файлов и coffee файлов в один файл
+**gulp coffee** - для сборки js файлов и coffee файлов в один файл
 
-** gulp relise ** - вышеизложенное вмести плюс минификация
+**gulp relise** - вышеизложенное вмести плюс минификация
 
-** gulp watch ** - для наблюдения и  компиляции less и coffee задач
+**gulp watch** - для наблюдения и  компиляции less и coffee задач
 
