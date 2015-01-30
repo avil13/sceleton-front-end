@@ -27,7 +27,7 @@ var plumber = require('gulp-plumber');
 
 // === templates ===========================================
 var tmpl = function(arr) {
-    var res = glob.sync('./template/*.html');
+    var res = glob.sync('./public/template/*.html');
 
     if (arr) res = res.concat(arr);
 
@@ -36,32 +36,30 @@ var tmpl = function(arr) {
 
 // relise ==================================================
 gulp.task('relise', ['less', 'coffee'], function() {
-    gulp.src(['./css/style.css'])
+    gulp.src(['./public/content/css/style.css'])
         .pipe(plumber({
             errorHandler: notify.onError("Error:\n<%= error %>")
         }))
-        .pipe(addsrc('./bower_components/sweetalert/lib/sweet-alert.css'))
         .pipe(autoprefixer({
             browsers: ['last 7 versions', '> 1%', 'ie 9'],
             cascade: false
         }))
         // .pipe(uncss({
-        //     html: tmpl(['./index.php'])
+        //     html: tmpl(['./public/content/index.php'])
         // }))
-        .pipe(addsrc('./bower_components/sweetalert/lib/sweet-alert.css'))
         .pipe(concat('style.css'))
         .pipe(csso())
-        .pipe(gulp.dest('./css'));
+        .pipe(gulp.dest('./public/content/css'));
 
-    gulp.src(['./js/script.js'])
+    gulp.src(['./public/content/js/script.js'])
         .pipe(stripDebug())
         .pipe(js1k())
-        .pipe(gulp.dest('./js'));
+        .pipe(gulp.dest('./public/content/js'));
 });
 
 // less ====================================================
 gulp.task('less', function() {
-    gulp.src(['./bower_components/bootstrap/less/bootstrap.less'])
+    gulp.src(['./public/content/bwr/bootstrap/less/bootstrap.less'])
         .pipe(plumber({errorHandler: notify.onError("Error:\n<%= error %>")}))
         .pipe(sourcemaps.init())
         .pipe(less({
@@ -69,22 +67,24 @@ gulp.task('less', function() {
         }).on('error', util.log))
         .pipe(concat('style.css'))
         .pipe(sourcemaps.write('../maps'))
-        .pipe(gulp.dest('./css'))
+        .pipe(addsrc('public/content/bwr/sweetalert/lib/sweet-alert.css'))
+        .pipe(concat('style.css'))
+        .pipe(gulp.dest('./public/content/css'))
         .pipe(livereload());
 });
 
 // coffescript =============================================
 gulp.task('coffee', function() {
     gulp.src([
-            'bower_components/sweetalert/lib/sweet-alert.min.js',
-            'bower_components/angular/angular.js',
-            'bower_components/angular-route/angular-route.js',
-            './coffee/app.coffee',
-            './coffee/factorys.coffee',
-            './coffee/directives.coffee',
-            './coffee/controller-MenuCtrl.coffee',
-            './coffee/controller-IndexCtrl.coffee',
-            './coffee/controller-AdminCtrl.coffee',
+            './public/content/bwr/sweetalert/lib/sweet-alert.min.js',
+            './public/content/bwr/angular/angular.js',
+            './public/content/bwr/angular-route/angular-route.js',
+            './public/content/coffee/app.coffee',
+            './public/content/coffee/factorys.coffee',
+            './public/content/coffee/directives.coffee',
+            './public/content/coffee/controller-MenuCtrl.coffee',
+            './public/content/coffee/controller-IndexCtrl.coffee',
+            './public/content/coffee/controller-AdminCtrl.coffee',
         ])
         .pipe(plumber({
             errorHandler: notify.onError("Error:\n<%= error %>")
@@ -95,7 +95,7 @@ gulp.task('coffee', function() {
         })))
         .pipe(concat('script.js'))
         .pipe(sourcemaps.write('../maps'))
-        .pipe(gulp.dest('./js'))
+        .pipe(gulp.dest('./public/content/js'))
         .pipe(livereload());
 });
 
@@ -114,7 +114,7 @@ gulp.task('default', ['coffee', 'less']);
 
 // Задача на отслеживание изменений ========================
 gulp.task('watch', function() {
-    gulp.watch(['./less/*.less'], ['less']);
-    gulp.watch(['./coffee/*.coffee'], ['coffee']);
-    gulp.watch('./*.php', ['reload']);
+    gulp.watch(['./public/content/less/*.less'], ['less']);
+    gulp.watch(['./public/content/coffee/*.coffee'], ['coffee']);
+    gulp.watch('./public/template/*', ['reload']);
 });

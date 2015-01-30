@@ -1,0 +1,20 @@
+<!-- <admin-menu></admin-menu> -->
+
+<div class="list-group col-xs-3">
+    <a href="" class="list-group-item" ng-repeat="user in users" ng-class="{active:user == users.active}" ng-click="actions.select(user)">{{user.name}}</a>
+</div>
+
+
+<ul class="list-group col-xs-4">
+    <li class="list-group-item">
+        <label>
+            <input type="radio" name="optionsRadios"> Group 1
+        </label>
+    </li>
+    <li class="list-group-item">
+        <label>
+            <input type="radio" name="optionsRadios"> Group 2
+        </label>
+    </li>
+
+</ul>
