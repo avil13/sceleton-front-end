@@ -19,7 +19,7 @@ bower install
 
 ```
 
-Установятся angular, angular-route, bootstrap 3.
+Установятся angular, angular-route, bootstrap 3, sweetalet.
 
 Скрипты изначально писались на coffee-script и лежат в папке 
 ```
@@ -52,7 +52,7 @@ public/content/coffee/
 
 **Как это сделал я.**
 
-[Скачал файл](https://github.com/avil13/sceleton-front-end/blob/master/setup.sh)
+[Скачал файл](https://raw.githubusercontent.com/avil13/sceleton-front-end/master/setup.sh)
 
 Сохранил в домашнюю директорию. Добавил на него алиас.
 
