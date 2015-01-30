@@ -5,6 +5,9 @@
 * [Быстрый старт](#fast)
 * [Вообще быстрый старт](#wery_fast)
 
+
+* * *
+
 ###### Fast
 ### Быстрый старт
 
@@ -37,7 +40,8 @@ public/content/coffee/
 
 **gulp watch** - для наблюдения и  компиляции less и coffee задач
 
-##
+
+* * *
 
 ###### wery_fast
 
@@ -79,9 +83,7 @@ Empty myProject
 
 
 
-
-
-##
+* * *
 
 #### P.S.
 
