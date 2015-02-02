@@ -6,13 +6,12 @@ var less = require('gulp-less');
 var uncss = require('gulp-uncss');
 var autoprefixer = require('gulp-autoprefixer');
 
-var js1k = require("gulp-js1k");
+var jsmin = require('gulp-jsmin');
 var stripDebug = require('gulp-strip-debug');
 
 var coffee = require('gulp-coffee');
 
 var sourcemaps = require('gulp-sourcemaps');
-var addsrc = require('gulp-add-src');
 var concat = require('gulp-concat');
 var gulpif = require('gulp-if');
 
@@ -22,6 +21,24 @@ var livereload = require('gulp-livereload');
 var util = require('gulp-util');
 var notify = require('gulp-notify');
 var plumber = require('gulp-plumber');
+
+
+// === files ===============================================
+var coffeFiles = [
+    './public/content/bwr/sweetalert/lib/sweet-alert.min.js',
+    './public/content/bwr/angular/angular.js',
+    './public/content/bwr/angular-route/angular-route.js',
+    './public/content/coffee/app.coffee',
+    './public/content/coffee/factorys.coffee',
+    './public/content/coffee/directives.coffee',
+    './public/content/coffee/controller-MenuCtrl.coffee',
+    './public/content/coffee/controller-IndexCtrl.coffee',
+    './public/content/coffee/controller-AdminCtrl.coffee',
+];
+var lessFiles = [
+    './public/content/less/bootstrap.less',
+    './public/content/bwr/sweetalert/lib/sweet-alert.css'
+];
 
 
 
@@ -35,11 +52,13 @@ var tmpl = function(arr) {
 };
 
 // relise ==================================================
-gulp.task('relise', ['less', 'coffee'], function() {
-    gulp.src(['./public/content/css/style.css'])
-        .pipe(plumber({
-            errorHandler: notify.onError("Error:\n<%= error %>")
-        }))
+gulp.task('relise', function() {
+
+    gulp.src(lessFiles)
+        .pipe(sourcemaps.init())
+        .pipe(less({
+            paths: [path.join(__dirname, 'less', 'includes')]
+        }).on('error', util.log))
         .pipe(autoprefixer({
             browsers: ['last 7 versions', '> 1%', 'ie 9'],
             cascade: false
@@ -47,45 +66,49 @@ gulp.task('relise', ['less', 'coffee'], function() {
         // .pipe(uncss({
         //     html: tmpl(['./public/content/index.php'])
         // }))
-        .pipe(concat('style.css'))
         .pipe(csso())
-        .pipe(gulp.dest('./public/content/css'));
+        .pipe(concat('style.css'))
+        .pipe(sourcemaps.write('../maps'))
+        .pipe(gulp.dest('./public/content/css'))
+        .pipe(livereload());
 
-    gulp.src(['./public/content/js/script.js'])
+
+
+    gulp.src(coffeFiles)
+        .pipe(plumber({
+            errorHandler: notify.onError("Error:\n<%= error %>")
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(gulpif(/[.]coffee$/, coffee({
+            bare: true
+        })))
         .pipe(stripDebug())
-        .pipe(js1k())
-        .pipe(gulp.dest('./public/content/js'));
+        // .pipe(js1k())
+        .pipe(concat('script.js'))
+        .pipe(jsmin())
+        .pipe(sourcemaps.write('../maps'))
+        .pipe(gulp.dest('./public/content/js'))
+        .pipe(livereload());
 });
+
 
 // less ====================================================
 gulp.task('less', function() {
-    gulp.src(['./public/content/bwr/bootstrap/less/bootstrap.less'])
-        .pipe(plumber({errorHandler: notify.onError("Error:\n<%= error %>")}))
+    gulp.src(lessFiles)
         .pipe(sourcemaps.init())
         .pipe(less({
             paths: [path.join(__dirname, 'less', 'includes')]
         }).on('error', util.log))
         .pipe(concat('style.css'))
         .pipe(sourcemaps.write('../maps'))
-        .pipe(addsrc('public/content/bwr/sweetalert/lib/sweet-alert.css'))
-        .pipe(concat('style.css'))
         .pipe(gulp.dest('./public/content/css'))
         .pipe(livereload());
 });
 
+
 // coffescript =============================================
 gulp.task('coffee', function() {
-    gulp.src([
-            './public/content/bwr/sweetalert/lib/sweet-alert.min.js',
-            './public/content/bwr/angular/angular.js',
-            './public/content/bwr/angular-route/angular-route.js',
-            './public/content/coffee/app.coffee',
-            './public/content/coffee/factorys.coffee',
-            './public/content/coffee/directives.coffee',
-            './public/content/coffee/controller-MenuCtrl.coffee',
-            './public/content/coffee/controller-IndexCtrl.coffee',
-            './public/content/coffee/controller-AdminCtrl.coffee',
-        ])
+    gulp.src(coffeFiles)
         .pipe(plumber({
             errorHandler: notify.onError("Error:\n<%= error %>")
         }))
