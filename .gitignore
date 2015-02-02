@@ -1,4 +1,4 @@
 
-public/content/bwr/
-maps/
-node_modules/
+public/content/bwr/*
+public/content/maps/*
+node_modules/*
