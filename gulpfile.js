@@ -36,8 +36,8 @@ var coffeFiles = [
     './public/content/coffee/controller-AdminCtrl.coffee',
 ];
 var lessFiles = [
-    './public/content/less/bootstrap.less',
-    './public/content/bwr/sweetalert/lib/sweet-alert.css'
+    './public/content/bwr/sweetalert/lib/sweet-alert.css',
+    './public/content/less/my_style.less'
 ];
 
 
@@ -137,7 +137,7 @@ gulp.task('default', ['coffee', 'less']);
 
 // Задача на отслеживание изменений ========================
 gulp.task('watch', function() {
-    gulp.watch(['./public/content/less/*.less'], ['less']);
-    gulp.watch(['./public/content/coffee/*.coffee'], ['coffee']);
+    gulp.watch(['./public/content/less/*.less'], ['less', 'reload']);
+    gulp.watch(['./public/content/coffee/*.coffee'], ['coffee', 'reload']);
     gulp.watch('./public/template/*', ['reload']);
 });

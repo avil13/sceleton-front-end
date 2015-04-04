@@ -6,6 +6,9 @@
 * [Вообще быстрый старт](#wery_fast)
 
 
+Для добавления своих новых стилей можно использовать файл `public/content/less/my_style.less`
+Он импортирует стили bootstrap и сразу же в нем можно добавлять свои.
+
 * * *
 
 ###### Fast
@@ -21,7 +24,7 @@ bower install
 
 Установятся angular, angular-route, bootstrap 3, sweetalert.
 
-Скрипты изначально писались на coffee-script и лежат в папке 
+Скрипты изначально писались на coffee-script и лежат в папке
 ```
 public/content/coffee/
 ```
@@ -30,7 +33,7 @@ public/content/coffee/
 
 И что бы это все нормально собиралось используем **Gulp**.
 
-В корне папки 
+В корне папки
 
 **gulp less** - для сборки CSS из Less файлов.
 
@@ -56,9 +59,9 @@ public/content/coffee/
 
 Сохранил в домашнюю директорию. Добавил на него алиас.
 
-К примеру 
+К примеру
 
-```bash 
+```bash
 alias Empty='~/setup.sh'
 ```
 
@@ -73,7 +76,7 @@ Empty
 
 Если же мы хотим сразуже задать новой папке название, к примеру **myProject**
 
-То вводим 
+То вводим
 
 ```bash
 Empty myProject
