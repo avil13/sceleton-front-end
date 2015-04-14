@@ -24,21 +24,23 @@ var plumber = require('gulp-plumber');
 
 
 // === files ===============================================
-var coffeFiles = [
-    './public/content/bwr/sweetalert/lib/sweet-alert.min.js',
-    './public/content/bwr/angular/angular.js',
-    './public/content/bwr/angular-route/angular-route.js',
-    './public/content/coffee/app.coffee',
-    './public/content/coffee/factorys.coffee',
-    './public/content/coffee/directives.coffee',
-    './public/content/coffee/controller-MenuCtrl.coffee',
-    './public/content/coffee/controller-IndexCtrl.coffee',
-    './public/content/coffee/controller-AdminCtrl.coffee',
-];
-var lessFiles = [
-    './public/content/bwr/sweetalert/lib/sweet-alert.css',
-    './public/content/less/my_style.less'
-];
+var files = {
+    js: [
+        './public/content/bwr/sweetalert/lib/sweet-alert.min.js',
+        './public/content/bwr/angular/angular.js',
+        './public/content/bwr/angular-route/angular-route.js',
+        './public/content/coffee/app.coffee',
+        './public/content/coffee/factorys.coffee',
+        './public/content/coffee/directives.coffee',
+        './public/content/coffee/controller-MenuCtrl.coffee',
+        './public/content/coffee/controller-IndexCtrl.coffee',
+        './public/content/coffee/controller-AdminCtrl.coffee',
+    ],
+    css: [
+        './public/content/bwr/sweetalert/lib/sweet-alert.css',
+        './public/content/less/my_style.less'
+    ]
+};
 
 
 
@@ -53,8 +55,7 @@ var tmpl = function(arr) {
 
 // relise ==================================================
 gulp.task('relise', function() {
-
-    gulp.src(lessFiles)
+    gulp.src(files.css)
         .pipe(sourcemaps.init())
         .pipe(less({
             paths: [path.join(__dirname, 'less', 'includes')]
@@ -73,8 +74,7 @@ gulp.task('relise', function() {
         .pipe(livereload());
 
 
-
-    gulp.src(coffeFiles)
+    gulp.src(files.js)
         .pipe(plumber({
             errorHandler: notify.onError("Error:\n<%= error %>")
         }))
@@ -93,8 +93,8 @@ gulp.task('relise', function() {
 
 
 // less ====================================================
-gulp.task('less', function() {
-    gulp.src(lessFiles)
+gulp.task('css', function() {
+    gulp.src(files.css)
         .pipe(sourcemaps.init())
         .pipe(less({
             paths: [path.join(__dirname, 'less', 'includes')]
@@ -107,8 +107,8 @@ gulp.task('less', function() {
 
 
 // coffescript =============================================
-gulp.task('coffee', function() {
-    gulp.src(coffeFiles)
+gulp.task('js', function() {
+    gulp.src(files.js)
         .pipe(plumber({
             errorHandler: notify.onError("Error:\n<%= error %>")
         }))
@@ -132,12 +132,12 @@ gulp.task('reload', function() {
 
 // =========================================================
 // Запуск задач
-gulp.task('default', ['coffee', 'less']);
+gulp.task('default', ['js', 'css']);
 
 
 // Задача на отслеживание изменений ========================
 gulp.task('watch', function() {
-    gulp.watch(['./public/content/less/*.less'], ['less', 'reload']);
-    gulp.watch(['./public/content/coffee/*.coffee'], ['coffee', 'reload']);
+    gulp.watch(['./public/content/less/*.less'], ['css', 'reload']);
+    gulp.watch(['./public/content/coffee/*.coffee'], ['js', 'reload']);
     gulp.watch('./public/template/*', ['reload']);
 });

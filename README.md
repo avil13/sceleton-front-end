@@ -18,7 +18,6 @@
 git clone git@github.com:avil13/sceleton-front-end.git
 cd sceleton-front-end
 npm install
-bower install
 
 ```
 
@@ -35,11 +34,11 @@ public/content/coffee/
 
 В корне папки
 
-**gulp less** - для сборки CSS из Less файлов.
+**gulp css** - для сборки CSS из Less файлов.
 
-**gulp coffee** - для сборки js файлов и coffee файлов в один файл
+**gulp js** - для сборки js файлов и coffee файлов в один файл
 
-**gulp relise** - вышеизложенное вмести плюс минификация
+**gulp relise** - вышеизложенное вместе плюс минификация
 
 **gulp watch** - для наблюдения и  компиляции less и coffee задач
 
