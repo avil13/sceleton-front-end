@@ -1,6 +1,9 @@
 
-public/content/bwr*
-public/content/maps/*
-public/content/css/*
-public/content/js/*
+public/content/assets/bwr*
+public/content/maps*
+public/content/css*
+public/content/js*
 node_modules/*
+.DS_Store
+Thumbs.db
+.directory
