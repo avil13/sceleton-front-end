@@ -14,9 +14,9 @@ var files = {
         './public/content/assets/bwr/sweetalert/lib/sweet-alert.min.js',
         './public/content/assets/bwr/angular/angular.js',
         './public/content/assets/bwr/angular-route/angular-route.js',
-        '.public/content/assets/coffee/app.coffee',
-        '.public/content/assets/coffee/factorys.coffee',
-        '.public/content/assets/coffee/directives.coffee',
+        './public/content/assets/coffee/app.coffee',
+        './public/content/assets/coffee/factorys.coffee',
+        './public/content/assets/coffee/directives.coffee',
         './public/content/assets/coffee/controllers/controller-MenuCtrl.coffee',
         './public/content/assets/coffee/controllers/controller-IndexCtrl.coffee',
         './public/content/assets/coffee/controllers/controller-AdminCtrl.coffee'
