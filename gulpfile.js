@@ -133,7 +133,7 @@ gulp.task('default', ['js', 'css']);
 
 // Задача на отслеживание изменений ========================
 gulp.task('watch', ['server'], function() {
-    gulp.watch(['./public/content/less/*.less'], ['css', 'reload']);
-    gulp.watch(['./public/content/coffee/*.coffee'], ['js', 'reload']);
+    gulp.watch(files.css, ['css', 'reload']);
+    gulp.watch(files.js, ['js', 'reload']);
     gulp.watch(tmpl(['./public/index.html']), ['reload']);
 });
