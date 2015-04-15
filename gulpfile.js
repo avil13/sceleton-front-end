@@ -1,26 +1,11 @@
 // "use strict";
 
+var $    = require('gulp-load-plugins')();
 var gulp = require('gulp');
-var csso = require('gulp-csso');
-var less = require('gulp-less');
-var uncss = require('gulp-uncss');
-var autoprefixer = require('gulp-autoprefixer');
-
-var jsmin = require('gulp-jsmin');
 var stripDebug = require('gulp-strip-debug');
 
-var coffee = require('gulp-coffee');
-
-var sourcemaps = require('gulp-sourcemaps');
-var concat = require('gulp-concat');
-var gulpif = require('gulp-if');
-
-var path = require('path');
 var glob = require('glob');
-var livereload = require('gulp-livereload');
-var util = require('gulp-util');
-var notify = require('gulp-notify');
-var plumber = require('gulp-plumber');
+var path = require('path');
 
 
 // === files ===============================================
@@ -56,77 +41,88 @@ var tmpl = function(arr) {
 // relise ==================================================
 gulp.task('relise', function() {
     gulp.src(files.css)
-        .pipe(sourcemaps.init())
-        .pipe(less({
+        .pipe($.sourcemaps.init())
+        .pipe($.less({
             paths: [path.join(__dirname, 'less', 'includes')]
-        }).on('error', util.log))
-        .pipe(autoprefixer({
+        }).on('error', $.util.log))
+        .pipe($.autoprefixer({
             browsers: ['last 7 versions', '> 1%', 'ie 9'],
             cascade: false
         }))
-        // .pipe(uncss({
-        //     html: tmpl(['./public/content/index.php'])
-        // }))
-        .pipe(csso())
-        .pipe(concat('style.css'))
-        .pipe(sourcemaps.write('../maps'))
+        .pipe($.uncss({
+            html: tmpl(['./public/index.html'])
+        }))
+        .pipe($.csso())
+        .pipe($.concat('style.css'))
+        .pipe($.sourcemaps.write('../maps'))
         .pipe(gulp.dest('./public/content/css'))
-        .pipe(livereload());
-
+        .pipe($.livereload());
 
     gulp.src(files.js)
-        .pipe(plumber({
-            errorHandler: notify.onError("Error:\n<%= error %>")
+        .pipe($.plumber({
+            errorHandler: $.notify.onError("Error:\n<%= error %>")
         }))
-        .pipe(sourcemaps.init())
-        .pipe(gulpif(/[.]coffee$/, coffee({
+        .pipe($.sourcemaps.init())
+        .pipe($.if(/[.]coffee$/, $.coffee({
             bare: true
         })))
         .pipe(stripDebug())
-        // .pipe(js1k())
-        .pipe(concat('script.js'))
-        .pipe(jsmin())
-        .pipe(sourcemaps.write('../maps'))
+        .pipe($.concat('script.js'))
+        .pipe($.jsmin())
+        .pipe($.sourcemaps.write('../maps'))
         .pipe(gulp.dest('./public/content/js'))
-        .pipe(livereload());
+        .pipe($.livereload());
 });
 
 
 // less ====================================================
 gulp.task('css', function() {
     gulp.src(files.css)
-        .pipe(sourcemaps.init())
-        .pipe(less({
+        .pipe($.sourcemaps.init())
+        .pipe($.less({
             paths: [path.join(__dirname, 'less', 'includes')]
-        }).on('error', util.log))
-        .pipe(concat('style.css'))
-        .pipe(sourcemaps.write('../maps'))
-        .pipe(gulp.dest('./public/content/css'))
-        .pipe(livereload());
+        }).on('error', $.util.log))
+        .pipe($.concat('style.css'))
+        .pipe($.sourcemaps.write('../maps'))
+        .pipe(gulp.dest('./public/content/css'));
 });
 
 
 // coffescript =============================================
 gulp.task('js', function() {
     gulp.src(files.js)
-        .pipe(plumber({
-            errorHandler: notify.onError("Error:\n<%= error %>")
+        .pipe($.plumber({
+            errorHandler: $.notify.onError("Error:\n<%= error %>")
         }))
-        .pipe(sourcemaps.init())
-        .pipe(gulpif(/[.]coffee$/, coffee({
+        .pipe($.sourcemaps.init())
+        .pipe($.if(/[.]coffee$/, $.coffee({
             bare: true
         })))
-        .pipe(concat('script.js'))
-        .pipe(sourcemaps.write('../maps'))
-        .pipe(gulp.dest('./public/content/js'))
-        .pipe(livereload());
+        .pipe($.concat('script.js'))
+        .pipe($.sourcemaps.write('../maps'))
+        .pipe(gulp.dest('./public/content/js'));
 });
+
+
+// =========================================================
+// Server
+gulp.task('server', ['js', 'css'], function () {
+    gulp.src('./public')
+    .pipe($.webserver({
+      port: 8080,
+      host: 'localhost',
+      fallback: 'index.html',
+      livereload: true,
+      open: true
+    }));
+});
+
 
 
 // =========================================================
 // Livereload
 gulp.task('reload', function() {
-    livereload();
+    $.livereload();
 });
 
 
@@ -136,8 +132,8 @@ gulp.task('default', ['js', 'css']);
 
 
 // Задача на отслеживание изменений ========================
-gulp.task('watch', function() {
+gulp.task('watch', ['server'], function() {
     gulp.watch(['./public/content/less/*.less'], ['css', 'reload']);
     gulp.watch(['./public/content/coffee/*.coffee'], ['js', 'reload']);
-    gulp.watch('./public/template/*', ['reload']);
+    gulp.watch(tmpl(['./public/index.html']), ['reload']);
 });

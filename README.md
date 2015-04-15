@@ -42,6 +42,8 @@ public/content/coffee/
 
 **gulp watch** - для наблюдения и  компиляции less и coffee задач
 
+**gulp server** - для запуска локального сервера на порту 8080
+
 
 * * *
 

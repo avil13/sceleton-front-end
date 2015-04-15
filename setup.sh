@@ -22,3 +22,6 @@ echo -e "${Green} gulp watch ${Color_Off}"
 echo -e "${Green} gulp js ${Color_Off}"
 echo -e "${Green} gulp css ${Color_Off}"
 echo -e "${Green} gulp relise ${Color_Off}"
+echo -e "${Green} gulp server ${Color_Off}"
+
+echo -e "\n \m/_(>_<)_\m/ \n"
