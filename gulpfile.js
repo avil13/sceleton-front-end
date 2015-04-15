@@ -1,7 +1,7 @@
 // "use strict";
 
-var $    = require('gulp-load-plugins')();
-var gulp = require('gulp');
+var $          = require('gulp-load-plugins')();
+var gulp       = require('gulp');
 var stripDebug = require('gulp-strip-debug');
 
 var glob = require('glob');
@@ -11,9 +11,9 @@ var path = require('path');
 // === files ===============================================
 var files = {
     js: [
-        './public/content/bwr/sweetalert/lib/sweet-alert.min.js',
-        './public/content/bwr/angular/angular.js',
-        './public/content/bwr/angular-route/angular-route.js',
+        './public/content/assets/bwr/sweetalert/lib/sweet-alert.min.js',
+        './public/content/assets/bwr/angular/angular.js',
+        './public/content/assets/bwr/angular-route/angular-route.js',
         '.public/content/assets/coffee/app.coffee',
         '.public/content/assets/coffee/factorys.coffee',
         '.public/content/assets/coffee/directives.coffee',
@@ -22,7 +22,7 @@ var files = {
         './public/content/assets/coffee/controllers/controller-AdminCtrl.coffee'
     ],
     css: [
-        './public/content/bwr/sweetalert/lib/sweet-alert.css',
+        './public/content/assets/bwr/sweetalert/lib/sweet-alert.css',
         './public/content/assets/less/my_style.less'
     ]
 };
