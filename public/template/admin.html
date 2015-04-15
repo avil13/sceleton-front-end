@@ -1,9 +1,13 @@
 <!-- <admin-menu></admin-menu> -->
 
-<div class="list-group col-xs-3">
-    <a href="" class="list-group-item" ng-repeat="user in users" ng-class="{active:user == users.active}" ng-click="actions.select(user)">{{user.name}}</a>
+<div class="col-xs-3">
+    <div class="well">
+        <a href="" class="btn btn-info btn-block" ng-click="getList()"><h4>Пользователи</h4></a>
+    </div>
+    <div class="list-group">
+        <a href="" class="list-group-item" ng-repeat="user in users" ng-class="{active:user == users.active}" ng-click="actions.select(user)">{{user.name}}</a>
+    </div>
 </div>
-
 
 <ul class="list-group col-xs-4">
     <li class="list-group-item">
@@ -16,5 +20,4 @@
             <input type="radio" name="optionsRadios"> Group 2
         </label>
     </li>
-
 </ul>

@@ -3,9 +3,10 @@
 ###
 APP.controller 'AdminCtrl', ['$scope', 'API',
     ($scope, API)->
-        API.post 'users.json', (data)->
-            $scope.users = data.content if data.content?
 
+        $scope.getList = ->
+            API.get 'users.json', (data)->
+                $scope.users = data.content if data.content?
 
         $scope.actions =
             select: (user)->

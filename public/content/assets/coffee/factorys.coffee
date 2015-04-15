@@ -5,6 +5,8 @@ Factorys
 ###
 APP.factory 'API', ['$http', 'swal',
     ($http, swal)->
+            url: ''
+
             err: (data, status)->
                 console.log(status, data)
                 msg = if data && data.error && data.error.message then data.error.message  else ''
@@ -27,32 +29,32 @@ APP.factory 'API', ['$http', 'swal',
             get: (model, callback)->
                 $http
                         method: 'GET',
-                        url: '/action/api/' + model
+                        url: @url + model
                     .success (data)-> callback data if callback?
                     .error this.err
 
             show: (model, id, callback)->
-                $http.get '/action/api/' + model + '/' + id
+                $http.get @url + model + '/' + id
                     .success (data)-> callback? data
                     .error this.err
 
             store: (model, data, callback)->
-                $http.post '/action/api/' + model, data
+                $http.post @url + model, data
                     .success (data)-> callback? data
                     .error this.err
 
             update: (model, id, data, callback)->
-                $http.put '/action/api/' + model + '/' + id, data
+                $http.put @url + model + '/' + id, data
                     .success (data)-> callback? data
                     .error this.err
 
             edit: (model, id, callback)->
-                $http.get '/action/api/' + model + '/' + id + '/edit'
+                $http.get @url + model + '/' + id + '/edit'
                     .success (data)-> callback? data
                     .error this.err
 
             destroy: (model, id, callback)->
-                $http.delete '/action/api/' + model + '/' + id
+                $http.delete @url + model + '/' + id
                     .success (data)-> callback? data
                     .error this.err
 ]

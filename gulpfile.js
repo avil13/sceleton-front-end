@@ -14,16 +14,16 @@ var files = {
         './public/content/bwr/sweetalert/lib/sweet-alert.min.js',
         './public/content/bwr/angular/angular.js',
         './public/content/bwr/angular-route/angular-route.js',
-        './public/content/coffee/app.coffee',
-        './public/content/coffee/factorys.coffee',
-        './public/content/coffee/directives.coffee',
-        './public/content/coffee/controller-MenuCtrl.coffee',
-        './public/content/coffee/controller-IndexCtrl.coffee',
-        './public/content/coffee/controller-AdminCtrl.coffee',
+        '.public/content/assets/coffee/app.coffee',
+        '.public/content/assets/coffee/factorys.coffee',
+        '.public/content/assets/coffee/directives.coffee',
+        './public/content/assets/coffee/controllers/controller-MenuCtrl.coffee',
+        './public/content/assets/coffee/controllers/controller-IndexCtrl.coffee',
+        './public/content/assets/coffee/controllers/controller-AdminCtrl.coffee'
     ],
     css: [
         './public/content/bwr/sweetalert/lib/sweet-alert.css',
-        './public/content/less/my_style.less'
+        './public/content/assets/less/my_style.less'
     ]
 };
 
